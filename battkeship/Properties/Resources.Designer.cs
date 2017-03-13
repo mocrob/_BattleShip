@@ -73,9 +73,29 @@ namespace battkeship.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FourShip_Grey {
+            get {
+                object obj = ResourceManager.GetObject("FourShip_Grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Ship_Green {
             get {
                 object obj = ResourceManager.GetObject("Ship_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ship_Grey {
+            get {
+                object obj = ResourceManager.GetObject("Ship_Grey", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +153,29 @@ namespace battkeship.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ThreeShip_Grey {
+            get {
+                object obj = ResourceManager.GetObject("ThreeShip_Grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TwoShip_Green {
             get {
                 object obj = ResourceManager.GetObject("TwoShip_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TwoShip_Grey {
+            get {
+                object obj = ResourceManager.GetObject("TwoShip_Grey", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

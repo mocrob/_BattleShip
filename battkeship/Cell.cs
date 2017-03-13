@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace battkeship
 {
@@ -11,9 +12,30 @@ namespace battkeship
 
         public Cell()
         {
+            cell = new PictureBox();
+            isEmpty = true;
             condition = 0;
-            imgOnCell = global::battkeship.Properties.Resources.Water;
+            cell.Image = global::battkeship.Properties.Resources.Water;
+            isBorder = false;
+            canAdd = true;
         }
+
+        bool canAdd;
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set { canAdd = value; }
+        }
+        //
+        PictureBox cell;
+
+        public PictureBox _Cell
+        {
+            get { return cell; }
+            set { cell = value; }
+        }
+        //граница
+        bool isBorder;
         //состояние
         int condition;/*-1- граница поля
                        * 0-пустая клетка, 
@@ -29,6 +51,8 @@ namespace battkeship
 
         //изображение клетки поля
         Image imgOnCell;
+        //Клетка пустая (condition =0)
+        bool isEmpty;
         public int Condition
         {
             get { return condition; }
@@ -40,37 +64,49 @@ namespace battkeship
             set { imgOnCell = value; }
         }
 
+        public bool IsEmpty
+        {
+            get { return isEmpty; }
+            set { isEmpty = value; }
+        }
+
+        public bool IsBorder
+        {
+            get { return isBorder; }
+            set { isBorder = value; }
+        }
         //функция рисования клетки 
         public void onPaint()
         {
+            
             if(this.condition==0)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Water;
+                cell.Image = global::battkeship.Properties.Resources.Water;
                 return;
             }
             if (this.condition == 1)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Ship_Green;
+                cell.Image = global::battkeship.Properties.Resources.Ship_Green;
                 return;
             }
             if (this.condition == 5)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Ship_Ligth_Yellow;
+                cell.Image = global::battkeship.Properties.Resources.Ship_Ligth_Yellow;
                 return; 
             }
             if (this.condition == 6)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Ship_Yellow;
+                cell.Image = global::battkeship.Properties.Resources.Ship_Yellow;
                 return; 
             }
             if (this.condition == 7)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Ship_Orange;
+                cell.Image = global::battkeship.Properties.Resources.Ship_Orange;
                 return;
             }
             if (this.condition == 8)
             {
-                imgOnCell = global::battkeship.Properties.Resources.Ship_Red;
+                cell.Image = global::battkeship.Properties.Resources.Ship_Red;
                 return;
             }
         }

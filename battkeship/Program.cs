@@ -7,6 +7,7 @@ namespace battkeship
 {
     static class Program
     {
+        public static Form1 menu;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -15,7 +16,7 @@ namespace battkeship
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(menu = new Form1());
         }
     }
 }

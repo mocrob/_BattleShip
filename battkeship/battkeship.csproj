@@ -52,6 +52,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship.cs" />
@@ -104,6 +105,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FourShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ThreeShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TwoShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FourShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ship_Grey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

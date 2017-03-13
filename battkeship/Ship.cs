@@ -15,12 +15,25 @@ namespace battkeship
          * 3-трехпалубный
          * 4-четырехпалубный
          */
+
+        
         //Очки здоровья корабля
         int hp;
         //Жив или мертв
         bool isLive;
         //Масиивы координат корабля
         int[] x, y;
+
+        public int[] X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        public int[] Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
         //Переменая для определения положения коробля на поле
         int rotation;
         /*
@@ -36,8 +49,16 @@ namespace battkeship
             get { return type; }
             set { type = value; }
         }
+
+       
+
+        public Ship()
+        {
+
+        }
         public Ship(int _type, int _x, int _y, int _rotation, Field curField)
         {
+            
             rotation = _rotation;
             type = _type;
             x = new int[_type]; y = new int[_type];
@@ -171,6 +192,15 @@ namespace battkeship
         }
 
 
-
+        public Ship delete( Cell[,] _Field)
+        {
+            for (int i = 0; i < this.type; i++)
+            {
+                _Field[this.X[i], this.y[i]].Condition = 0;
+                _Field[this.X[i], this.y[i]].onPaint();
+                _Field[this.X[i], this.y[i]].CanAdd = true;
+            }
+            return null;
+        }
     }
 }

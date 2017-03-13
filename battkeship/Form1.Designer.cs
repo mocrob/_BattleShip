@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.FieldTwo = new System.Windows.Forms.Panel();
             this.FieldOne = new System.Windows.Forms.Panel();
             this.fourDeck = new System.Windows.Forms.PictureBox();
@@ -46,16 +45,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.oneDeck)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 359);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FieldTwo
             // 
             this.FieldTwo.Location = new System.Drawing.Point(588, 32);
@@ -72,45 +61,49 @@
             // 
             // fourDeck
             // 
-            this.fourDeck.Location = new System.Drawing.Point(12, 65);
+            this.fourDeck.Location = new System.Drawing.Point(12, 35);
             this.fourDeck.Name = "fourDeck";
             this.fourDeck.Size = new System.Drawing.Size(140, 35);
             this.fourDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.fourDeck.TabIndex = 2;
             this.fourDeck.TabStop = false;
+            this.fourDeck.MouseClick += new System.Windows.Forms.MouseEventHandler(this.fourDeck_MouseClick);
             // 
             // threeDeck
             // 
-            this.threeDeck.Location = new System.Drawing.Point(12, 106);
+            this.threeDeck.Location = new System.Drawing.Point(12, 76);
             this.threeDeck.Name = "threeDeck";
             this.threeDeck.Size = new System.Drawing.Size(105, 35);
             this.threeDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.threeDeck.TabIndex = 3;
             this.threeDeck.TabStop = false;
+            this.threeDeck.MouseDown += new System.Windows.Forms.MouseEventHandler(this.threeDeck_MouseDown);
             // 
             // twoDeck
             // 
-            this.twoDeck.Location = new System.Drawing.Point(12, 147);
+            this.twoDeck.Location = new System.Drawing.Point(12, 117);
             this.twoDeck.Name = "twoDeck";
             this.twoDeck.Size = new System.Drawing.Size(70, 35);
             this.twoDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.twoDeck.TabIndex = 4;
             this.twoDeck.TabStop = false;
+            this.twoDeck.MouseDown += new System.Windows.Forms.MouseEventHandler(this.twoDeck_MouseDown);
             // 
             // oneDeck
             // 
-            this.oneDeck.Location = new System.Drawing.Point(12, 188);
+            this.oneDeck.Location = new System.Drawing.Point(12, 158);
             this.oneDeck.Name = "oneDeck";
             this.oneDeck.Size = new System.Drawing.Size(35, 35);
             this.oneDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.oneDeck.TabIndex = 5;
             this.oneDeck.TabStop = false;
+            this.oneDeck.MouseDown += new System.Windows.Forms.MouseEventHandler(this.oneDeck_MouseDown);
             // 
             // numOfFour
             // 
             this.numOfFour.AutoSize = true;
             this.numOfFour.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numOfFour.Location = new System.Drawing.Point(176, 65);
+            this.numOfFour.Location = new System.Drawing.Point(175, 35);
             this.numOfFour.Name = "numOfFour";
             this.numOfFour.Size = new System.Drawing.Size(188, 39);
             this.numOfFour.TabIndex = 0;
@@ -120,7 +113,7 @@
             // 
             this.numOfThree.AutoSize = true;
             this.numOfThree.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numOfThree.Location = new System.Drawing.Point(176, 106);
+            this.numOfThree.Location = new System.Drawing.Point(175, 76);
             this.numOfThree.Name = "numOfThree";
             this.numOfThree.Size = new System.Drawing.Size(207, 39);
             this.numOfThree.TabIndex = 1;
@@ -130,7 +123,7 @@
             // 
             this.numOfTwo.AutoSize = true;
             this.numOfTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numOfTwo.Location = new System.Drawing.Point(176, 147);
+            this.numOfTwo.Location = new System.Drawing.Point(175, 117);
             this.numOfTwo.Name = "numOfTwo";
             this.numOfTwo.Size = new System.Drawing.Size(183, 39);
             this.numOfTwo.TabIndex = 2;
@@ -140,7 +133,7 @@
             // 
             this.numOfOne.AutoSize = true;
             this.numOfOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numOfOne.Location = new System.Drawing.Point(176, 188);
+            this.numOfOne.Location = new System.Drawing.Point(175, 158);
             this.numOfOne.Name = "numOfOne";
             this.numOfOne.Size = new System.Drawing.Size(182, 39);
             this.numOfOne.TabIndex = 3;
@@ -148,7 +141,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 330);
+            this.button2.Location = new System.Drawing.Point(12, 359);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -167,7 +160,6 @@
             this.Controls.Add(this.threeDeck);
             this.Controls.Add(this.fourDeck);
             this.Controls.Add(this.FieldTwo);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.FieldOne);
             this.Controls.Add(this.numOfOne);
             this.Controls.Add(this.numOfTwo);
@@ -186,17 +178,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel FieldTwo;
         private System.Windows.Forms.Panel FieldOne;
-        private System.Windows.Forms.PictureBox fourDeck;
-        private System.Windows.Forms.PictureBox threeDeck;
-        private System.Windows.Forms.PictureBox twoDeck;
-        private System.Windows.Forms.PictureBox oneDeck;
-        private System.Windows.Forms.Label numOfFour;
-        private System.Windows.Forms.Label numOfThree;
-        private System.Windows.Forms.Label numOfTwo;
-        private System.Windows.Forms.Label numOfOne;
+        public System.Windows.Forms.PictureBox fourDeck;
+        public System.Windows.Forms.PictureBox threeDeck;
+        public System.Windows.Forms.PictureBox twoDeck;
+        public System.Windows.Forms.PictureBox oneDeck;
+        public System.Windows.Forms.Label numOfFour;
+        public System.Windows.Forms.Label numOfThree;
+        public System.Windows.Forms.Label numOfTwo;
+        public System.Windows.Forms.Label numOfOne;
         private System.Windows.Forms.Button button2;
 
     }

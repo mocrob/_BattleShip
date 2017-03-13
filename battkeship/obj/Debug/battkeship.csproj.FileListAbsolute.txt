@@ -1,0 +1,8 @@
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\bin\Debug\battkeship.exe
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\bin\Debug\battkeship.pdb
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.Form1.resources
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.Properties.Resources.resources
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.csproj.GenerateResource.Cache
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.exe
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.pdb
+D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.csprojResolveAssemblyReference.cache

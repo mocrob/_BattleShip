@@ -6,3 +6,11 @@ D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\
 D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.exe
 D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.pdb
 D:\Desktop\Учеба\4 семестр\Техн. прог\battleship\battkeship\battkeship\obj\Debug\battkeship.csprojResolveAssemblyReference.cache
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.exe
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.pdb
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\bin\Debug\battkeship.exe
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\bin\Debug\battkeship.pdb
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.csprojResolveAssemblyReference.cache
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.Form1.resources
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.Properties.Resources.resources
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.csproj.GenerateResource.Cache

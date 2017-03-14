@@ -54,6 +54,9 @@ namespace battkeship
         static int Col = 10, Row = 10;
         //размер клетки (size) и координаты клетки
         int x, y, size;
+        // счетчики для кораблей
+        int one, two, three;
+
         public int X
         {
             get { return x; }
@@ -145,10 +148,10 @@ namespace battkeship
         //Функция обработки нажатия кнопки мыши
         void Click(object sender, MouseEventArgs e)
         {
-            
+
             if (e.Button == MouseButtons.Left)
             {
-               
+
                 if (isEnemyField == false && isCreateMode == true && isSelected == true)
                 {
 
@@ -160,7 +163,7 @@ namespace battkeship
                     {
                         AddShip(type, x, y, rotation);
                         updateLabeles(Program.menu.numOfOne, Program.menu.numOfTwo, Program.menu.numOfThree, Program.menu.numOfFour);
-                        
+
                         for (int i = 0; i < type; i++)
                         {
                             if (rotation == 0)
@@ -498,22 +501,22 @@ namespace battkeship
             else
                 //down
                 if (rotation == 1)
-                {
-                    for (int i = 0; i < Row; i++)
-                        M[i, Row - 1].IsBorder = true;
-                }
-                else
+            {
+                for (int i = 0; i < Row; i++)
+                    M[i, Row - 1].IsBorder = true;
+            }
+            else
                     //left
                     if (rotation == 3)
-                    {
-                        for (int i = 0; i < Row; i++)
-                            M[Row - 1, i].IsBorder = true;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < Row; i++)
-                            M[0, i].IsBorder = true;
-                    }
+            {
+                for (int i = 0; i < Row; i++)
+                    M[Row - 1, i].IsBorder = true;
+            }
+            else
+            {
+                for (int i = 0; i < Row; i++)
+                    M[0, i].IsBorder = true;
+            }
         }
         void UnBorder(Cell[,] M)
         {
@@ -554,7 +557,7 @@ namespace battkeship
         //Удаление корабля
         void DeleteShip(int _x, int _y)
         {
-            int k=0;
+            int k = 0;
             for (int i = 0; i < numOfShips; i++)
             {
                 for (int j = 0; j < player.MyShips[i].Type; j++)
@@ -577,17 +580,18 @@ namespace battkeship
                         }
                         player.MyShips[i].delete(_Field);
                         player.MyShips[i] = null;
-                        
-                        for ( k= i; k < numOfShips - 1; k++)
+
+                        for (k = i; k < numOfShips - 1; k++)
                         {
                             player.MyShips[k] = player.MyShips[k + 1];
                             if (player.MyShips[k + 1] == null) { numOfShips -= 1; return; }
                         }
                         player.MyShips[k] = null;
                         numOfShips -= 1;
+
                         return;
                     }
-                    
+
                 }
             }
         }
@@ -639,7 +643,7 @@ namespace battkeship
             }
             else
             {
-                four.Enabled = true;           
+                four.Enabled = true;
             }
             if (type == 3 && player.NumOfShipThree == 0)
             {
@@ -652,7 +656,7 @@ namespace battkeship
             }
             else
             {
-                three.Enabled = true;  
+                three.Enabled = true;
             }
             if (type == 2 && player.NumOfShipTwo == 0)
             {
@@ -661,7 +665,7 @@ namespace battkeship
                 two.Image = global::battkeship.Properties.Resources.TwoShip_Grey;
                 two.Enabled = false;
                 type = 0;
-                return ;
+                return;
             }
             else
             {
@@ -674,7 +678,7 @@ namespace battkeship
                 one.Image = global::battkeship.Properties.Resources.Ship_Grey;
                 one.Enabled = false;
                 type = 0;
-                return ;
+                return;
             }
             else
             {
@@ -683,5 +687,287 @@ namespace battkeship
 
 
         }
+        // Случайная расстановка
+        public void RandomGenerator()
+        {
+            // затирать все предыдущие расстановки
+            for (int i = 0; i < Row; i++)
+            {
+                for (int j = 0; j < Row; j++)
+                {
+                    DeleteShip(i, j);
+                    _Field[i, j].Condition = 0;
+                    _Field[i, j].CanAdd = true;
+                    _Field[i, j]._Cell.Image = global::battkeship.Properties.Resources.Water;
+                    _Field[i, j]._Cell.Update();
+
+                }
+            }
+
+
+            var random = new Random();
+            int x = random.Next(10);
+            int y = random.Next(10);
+
+            // размещение 4-ех палубника
+
+            RandFour(random, x, y);
+
+            // размещение 3-ех палубников
+            three = 0;
+            while (three < 2)
+            {
+
+                RandThree(random, x, y);
+            }
+
+
+            // размещение 2-ух палубников
+            two = 0;
+            while (two < 3)
+            {
+                RandTwo(random, x, y);
+            }
+
+            // размещение однопалубников
+            one = 0;
+            while (one < 4)
+            {
+                RandOne(random, x, y);
+            }
+
+            updateLabeles(Program.menu.numOfOne, Program.menu.numOfTwo, Program.menu.numOfThree, Program.menu.numOfFour);
+        }
+        //генерация 4-палубного
+        void RandFour(Random random, int x, int y)
+        {
+
+            if (x > 5)
+            {
+                y = random.Next(5);
+                for (int i = 0; i < 4; i++)
+                {
+                    _Field[x, y + i].Condition = 1;
+                    _Field[x, y + i].CanAdd = false;
+
+                }
+                AddShip(4, x, y, 1);
+                ChangeZoneNearShip(_Field, true);
+                return;
+            }
+
+            if (y > 5)
+            {
+                x = random.Next(5);
+                for (int j = 0; j < 4; j++)
+                {
+                    _Field[x + j, y].Condition = 1;
+                    _Field[x + j, y].CanAdd = false;
+
+                }
+                AddShip(4, x, y, 3);
+                ChangeZoneNearShip(_Field, true);
+                return;
+            }
+
+            int k = random.Next(1);
+            if (k == 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    _Field[x, y + i].Condition = 1;
+                    _Field[x, y + i].CanAdd = false;
+
+                }
+                AddShip(4, x, y, 1);
+                ChangeZoneNearShip(_Field, true);
+            }
+            else
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    _Field[x + j, y].Condition = 1;
+                    _Field[x + j, y].CanAdd = false;
+
+                }
+                AddShip(4, x, y, 3);
+                ChangeZoneNearShip(_Field, true);
+            }
+
+
+
+            ChangeZoneNearShip(_Field, true);
+        }
+        //генерация 3-палубного
+        void RandThree(Random random, int x, int y)
+        {
+            x = random.Next(10);
+            y = random.Next(10);
+            if (_Field[x, y].Condition == 0)
+            {
+                if (y > 6)
+                {
+                    x = random.Next(7);
+                    if (_Field[x + 1, y].Condition == 0 && _Field[x + 2, y].Condition == 0 && _Field[x, y].Condition == 0)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            _Field[x + j, y].Condition = 1;
+                            _Field[x + j, y].CanAdd = false;
+                        }
+                        three++;
+                        AddShip(3, x, y, 3);
+                        ChangeZoneNearShip(_Field, true);
+                        return;
+                    }
+                }
+                if (x > 6)
+                {
+                    y = random.Next(7);
+                    if (_Field[x, y + 1].Condition == 0 && _Field[x, y + 2].Condition == 0 && _Field[x, y].Condition == 0)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            _Field[x, y + i].Condition = 1;
+                            _Field[x, y + i].CanAdd = false;
+                        }
+                        three++;
+                        AddShip(3, x, y, 1);
+                        ChangeZoneNearShip(_Field, true);
+                        return;
+                    }
+                }
+                int k = random.Next(1);
+                if (k == 0 && y <= 7 && _Field[x, y + 1].Condition == 0 && _Field[x, y + 2].Condition == 0 && _Field[x, y].Condition == 0)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        _Field[x, y + i].Condition = 1;
+                        _Field[x, y + i].CanAdd = false;
+                    }
+                    three++;
+                    AddShip(3, x, y, 1);
+                    ChangeZoneNearShip(_Field, true);
+                }
+                else
+                {
+                    if (x <= 7 && _Field[x + 1, y].Condition == 0 && _Field[x + 2, y].Condition == 0 && _Field[x, y].Condition == 0)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            _Field[x + j, y].Condition = 1;
+                            _Field[x + j, y].CanAdd = false;
+                        }
+                        three++;
+                        AddShip(3, x, y, 3);
+                        ChangeZoneNearShip(_Field, true);
+                    }
+                }
+            }
+        }
+        //генерация 2-палубного
+        void RandTwo(Random random, int x, int y)
+        {
+            x = random.Next(10);
+            y = random.Next(10);
+            if (y > 7)
+            {
+                x = random.Next(8);
+
+                if (_Field[x, y].Condition == 0 && _Field[x + 1, y].Condition == 0)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        _Field[x + j, y].Condition = 1;
+                        _Field[x + j, y].CanAdd = false;
+                    }
+                    two++;
+                    AddShip(2, x, y, 3);
+                    ChangeZoneNearShip(_Field, true);
+                    return;
+                }
+            }
+            if (x > 7)
+            {
+                y = random.Next(8);
+
+                if (_Field[x, y].Condition == 0 && _Field[x, y + 1].Condition == 0)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        _Field[x, y + i].Condition = 1;
+                        _Field[x, y + i].CanAdd = false;
+                    }
+                    two++;
+                    AddShip(2, x, y, 1);
+                    ChangeZoneNearShip(_Field, true);
+                    return;
+                }
+            }
+            int k = random.Next(1);
+            if (k == 0)
+            {
+
+                if (y <= 8 && _Field[x, y].Condition == 0 && _Field[x, y + 1].Condition == 0)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        _Field[x, y + i].Condition = 1;
+                        _Field[x, y + i].CanAdd = false;
+                    }
+                    two++;
+                    AddShip(2, x, y, 1);
+                    ChangeZoneNearShip(_Field, true);
+                }
+            }
+            else
+            {
+
+                if (x <= 8 && _Field[x, y].Condition == 0 && _Field[x + 1, y].Condition == 0)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        _Field[x + j, y].Condition = 1;
+                        _Field[x + j, y].CanAdd = false;
+                    }
+                    two++;
+                    AddShip(2, x, y, 3);
+                    ChangeZoneNearShip(_Field, true);
+                }
+            }
+
+        }
+        //генерация 1-палубного
+        void RandOne(Random random, int x, int y)
+        {
+            x = random.Next(10);
+            y = random.Next(10);
+            if (_Field[x, y].Condition == 0)
+            {
+                _Field[x, y].Condition = 1;
+                _Field[x, y].CanAdd = false;
+                AddShip(1, x, y, 1);
+                ChangeZoneNearShip(_Field, true);
+                one++;
+
+            }
+        }
+        // отрисовка кораблей после генерации
+        public void DrawRand()
+        {
+            for (int i = 0; i < Row; i++)
+            {
+                for (int j = 0; j < Row; j++)
+                {
+                    if (_Field[i, j].Condition == 1)
+                    {
+                        _Field[i, j]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+                        _Field[i, j]._Cell.Update();
+                    }
+                }
+            }
+
+        }
+
     }
 }

@@ -227,11 +227,10 @@ namespace battkeship
             MyField.Type = type;
         }
 
-       
-
-       
-
-
-
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            MyField.RandomGenerator();
+            MyField.DrawRand();
+        }
     }
 }

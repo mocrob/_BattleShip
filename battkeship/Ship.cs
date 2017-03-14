@@ -199,6 +199,8 @@ namespace battkeship
                 _Field[this.X[i], this.y[i]].Condition = 0;
                 _Field[this.X[i], this.y[i]].onPaint();
                 _Field[this.X[i], this.y[i]].CanAdd = true;
+                GC.Collect();
+                
             }
             return null;
         }

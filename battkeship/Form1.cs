@@ -15,7 +15,9 @@ namespace battkeship
         public Form1()
         {
             InitializeComponent();
+            this.button1.Text = "Test";
             this.button2.Text = "Start game";
+            this.button3.Text = "Generate";
             this.numOfFour.Text = ""; this.numOfThree.Text = ""; this.numOfTwo.Text = ""; this.numOfOne.Text = "";
             MyField.CreateField(FieldOne);
             EnemyField.CreateField(FieldTwo);
@@ -30,10 +32,7 @@ namespace battkeship
         
         int type;
         
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
 
         //Доска кораблей
         void shipDesk(PictureBox one, PictureBox two, PictureBox three, PictureBox four, Label _one, Label _two, Label _three, Label _four)
@@ -229,8 +228,21 @@ namespace battkeship
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            EnemyField.getMatrOfCondition(MyField.setMatrOfCondition());
+            EnemyField.setPlayer(MyField);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
             MyField.RandomGenerator();
             MyField.DrawRand();
         }
+
+       
+
+       
+
+
+
     }
 }

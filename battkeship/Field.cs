@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace battkeship
 {
@@ -54,9 +55,6 @@ namespace battkeship
         static int Col = 10, Row = 10;
         //размер клетки (size) и координаты клетки
         int x, y, size;
-        // счетчики для кораблей
-        int one, two, three;
-
         public int X
         {
             get { return x; }
@@ -68,13 +66,30 @@ namespace battkeship
             get { return y; }
             set { y = value; }
         }
-        /*Сделать геттеры сеттеры для матриц*/
+
+        //Матрица состояний поля
+        int[,] matrOfCondition;
+
+        public int[,] MatrOfCondition
+        {
+            get { return matrOfCondition; }
+            set { matrOfCondition = value; }
+        }
         //Матрица поля 
-        public Cell[,] _Field;
+        Cell[,] _field;
+
+        public Cell[,] _Field
+        {
+            get { return _field; }
+            set { _field = value; }
+        }
+
+        // счетчики для кораблей
+        int one, two, three;
         //Конструктор при создании
         public Field(bool isEnemy)
         {
-            _Field = CellMatrix(Col, Row);
+            _field = CellMatrix(Col, Row);
             //FieldBorder(_Field);
             isEnemyField = isEnemy;
             isCreateMode = true;
@@ -86,7 +101,7 @@ namespace battkeship
 
         public Field()
         {
-            _Field = CellMatrix(Col, Row);
+            _field = CellMatrix(Col, Row);
             //FieldBorder(_Field);
             numOfShips = 0;
         }
@@ -127,9 +142,18 @@ namespace battkeship
             PictureBox picEnter = sender as PictureBox;
             x = (int)Char.GetNumericValue(picEnter.Name[0]);
             y = (int)Char.GetNumericValue(picEnter.Name[2]);
-            if (isEnemyField == false && isCreateMode == true && _Field[x, y].IsEmpty/*condition=0*/== true)
+            if (isEnemyField == false && isCreateMode == true && _field[x, y].IsEmpty/*condition=0*/== true)
             {
-                _Enter(x, y, type, rotation, _Field);
+                _Enter(x, y, type, rotation, _field);
+            }
+            else if (isEnemyField == true)
+            {
+                Image res = global::battkeship.Properties.Resources.SelectedWater;
+                if (_field[x, y].Condition == 0 || _field[x, y].Condition == 1|| _field[x, y].Condition == 2)
+                {
+                    _field[x, y]._Cell.Image = res;
+                    _field[x, y]._Cell.Update();
+                }
             }
         }
 
@@ -140,9 +164,21 @@ namespace battkeship
             PictureBox picEnter = sender as PictureBox;
             x = (int)Char.GetNumericValue(picEnter.Name[0]);
             y = (int)Char.GetNumericValue(picEnter.Name[2]);
-            if (isEnemyField == false && isCreateMode == true && _Field[x, y].IsEmpty/*condition=0*/== true)
+            if (isEnemyField == false && isCreateMode == true && _field[x, y].IsEmpty/*condition=0*/== true)
             {
-                _Leave(x, y, type, rotation, _Field);
+                _Leave(x, y, type, rotation, _field);
+
+
+
+            }
+            else if (isEnemyField == true)
+            {
+                Image res = global::battkeship.Properties.Resources.Water;
+                if (_field[x, y].Condition == 0 || _field[x, y].Condition == 1 || _field[x, y].Condition == 2)
+                {
+                    _field[x, y]._Cell.Image = res;
+                    _field[x, y]._Cell.Update();
+                }
             }
         }
         //Функция обработки нажатия кнопки мыши
@@ -159,7 +195,7 @@ namespace battkeship
 
                     x = (int)Char.GetNumericValue(picClick.Name[0]);
                     y = (int)Char.GetNumericValue(picClick.Name[2]);
-                    if (Check(x, y, type, rotation, _Field) == true)
+                    if (Check(x, y, type, rotation, _field) == true)
                     {
                         AddShip(type, x, y, rotation);
                         updateLabeles(Program.menu.numOfOne, Program.menu.numOfTwo, Program.menu.numOfThree, Program.menu.numOfFour);
@@ -168,40 +204,49 @@ namespace battkeship
                         {
                             if (rotation == 0)
                             {
-                                _Field[x, y - i].Condition = 1;
-                                _Field[x, y - i].CanAdd = false;
-                                _Field[x, y - i].onPaint();
-                                _Field[x, y - i]._Cell.Update();
+                                _field[x, y - i].Condition = 1;
+                                _field[x, y - i].CanAdd = false;
+                                _field[x, y - i].onPaint();
+                                _field[x, y - i]._Cell.Update();
                                 continue;
                             }
                             if (rotation == 1)
                             {
-                                _Field[x, y + i].Condition = 1;
-                                _Field[x, y + i].CanAdd = false;
-                                _Field[x, y + i].onPaint();
-                                _Field[x, y + i]._Cell.Update();
+                                _field[x, y + i].Condition = 1;
+                                _field[x, y + i].CanAdd = false;
+                                _field[x, y + i].onPaint();
+                                _field[x, y + i]._Cell.Update();
                                 continue;
                             }
                             if (rotation == 2)
                             {
-                                _Field[x - i, y].Condition = 1;
-                                _Field[x - i, y].CanAdd = false;
-                                _Field[x - i, y].onPaint();
-                                _Field[x - i, y]._Cell.Update();
+                                _field[x - i, y].Condition = 1;
+                                _field[x - i, y].CanAdd = false;
+                                _field[x - i, y].onPaint();
+                                _field[x - i, y]._Cell.Update();
                                 continue;
                             }
                             if (rotation == 3)
                             {
-                                _Field[x + i, y].Condition = 1;
-                                _Field[x + i, y].CanAdd = false;
-                                _Field[x + i, y].onPaint();
-                                _Field[x + i, y]._Cell.Update();
+                                _field[x + i, y].Condition = 1;
+                                _field[x + i, y].CanAdd = false;
+                                _field[x + i, y].onPaint();
+                                _field[x + i, y]._Cell.Update();
                                 continue;
                             }
                         }
                         updatePBoxes(Program.menu.oneDeck, Program.menu.twoDeck, Program.menu.threeDeck, Program.menu.fourDeck);
-                        ChangeZoneNearShip(_Field, true/*при создании*/);
+                        ChangeZoneNearShip(_field, true/*при создании*/);
                     }
+                }
+                else if (isEnemyField == true)
+                {
+                    PictureBox picClick = sender as PictureBox;
+
+                    x = (int)Char.GetNumericValue(picClick.Name[0]);
+                    y = (int)Char.GetNumericValue(picClick.Name[2]);
+
+                    player.hit(this, x, y);
                 }
             }
             if (e.Button == MouseButtons.Right)
@@ -211,7 +256,7 @@ namespace battkeship
                     PictureBox picClick = sender as PictureBox;
                     x = (int)Char.GetNumericValue(picClick.Name[0]);
                     y = (int)Char.GetNumericValue(picClick.Name[2]);
-                    _Leave(x, y, type, rotation, _Field);
+                    _Leave(x, y, type, rotation, _field);
                     if (rotation == 1) rotation = 3;
                     else
                     {
@@ -223,7 +268,7 @@ namespace battkeship
                         }
                     }
 
-                    _Enter(x, y, type, rotation, _Field);
+                    _Enter(x, y, type, rotation, _field);
 
                 }
             }
@@ -315,20 +360,23 @@ namespace battkeship
         {
             if (e.Button == MouseButtons.Left)
             {
-                ChangeZoneNearShip(_Field, false);
-                PictureBox picClick = sender as PictureBox;
-                int i = 0;
-                x = (int)Char.GetNumericValue(picClick.Name[0]);
-                y = (int)Char.GetNumericValue(picClick.Name[2]);
-                DeleteShip(x, y);
-                updateLabeles(Program.menu.numOfOne, Program.menu.numOfTwo, Program.menu.numOfThree, Program.menu.numOfFour);
-                updatePBoxes(Program.menu.oneDeck, Program.menu.twoDeck, Program.menu.threeDeck, Program.menu.fourDeck);
-                ChangeZoneNearShip(_Field, true);
+                if (isEnemyField == false && isCreateMode == true)
+                {
+                    ChangeZoneNearShip(_field, false);
+                    PictureBox picClick = sender as PictureBox;
+                    int i = 0;
+                    x = (int)Char.GetNumericValue(picClick.Name[0]);
+                    y = (int)Char.GetNumericValue(picClick.Name[2]);
+                    DeleteShip(x, y);
+                    updateLabeles(Program.menu.numOfOne, Program.menu.numOfTwo, Program.menu.numOfThree, Program.menu.numOfFour);
+                    updatePBoxes(Program.menu.oneDeck, Program.menu.twoDeck, Program.menu.threeDeck, Program.menu.fourDeck);
+                    ChangeZoneNearShip(_field, true);
+                }
             }
         }
         void _Enter(int x, int y, int type, int rotation, Cell[,] _Field)
         {
-
+            Image res = global::battkeship.Properties.Resources.Ship_Green;
             Border(rotation, _Field);
             if (type != 1)
             {
@@ -337,18 +385,58 @@ namespace battkeship
                     if (rotation == 0)
                     {
                         if (y - i < 0) break;
-                        if (_Field[x, y - i].CanAdd == false && _Field[x, y - i].IsBorder == true) break;
-                        _Field[x, y - i]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+
+                        if (y - type + 1 < 0)
+                            res = global::battkeship.Properties.Resources.Ship_Red;
+
+                        else
+                        {
+                            if (_Field[x, y - i].CanAdd == false)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Red;
+                                if (_Field[x, y - i].Condition == 1)
+                                    res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+                            else if (_Field[x, y - i].Condition == 0)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+                        }
+                        if (_Field[x, y - i].CanAdd == false && _Field[x, y - i].IsBorder == true)
+                        {
+                            break;
+                        }
+                        _Field[x, y - i]._Cell.Image = res;
                         _Field[x, y - i]._Cell.Update();
 
-                        if (_Field[x, y - i].IsBorder == true && _Field[x, y - i].Condition != 2) { _Field[x, y - i].CanAdd = true; break; }
+                        if (_Field[x, y - i].IsBorder == true && _Field[x, y - i].Condition != 2)
+                        {
+                            _Field[x, y - i].CanAdd = true;
+                            break;
+                        }
                         continue;
                     }
                     if (rotation == 1)
                     {
                         if (y + i > Row - 1) break;
+                        if (y + type - 1 > Row - 1)
+                            res = global::battkeship.Properties.Resources.Ship_Red;
+                        else
+                            if (_Field[x, y + i].CanAdd == false)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Red;
+                                if (_Field[x, y + i].Condition == 1)
+                                    res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+                            else if (_Field[x, y + i].Condition == 0)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+
+
+
                         if (_Field[x, y + i].CanAdd == false && _Field[x, y + i].IsBorder == true) break;
-                        _Field[x, y + i]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+                        _Field[x, y + i]._Cell.Image = res;
                         _Field[x, y + i]._Cell.Update();
 
                         if (_Field[x, y + i].IsBorder == true && _Field[x, y + i].Condition != 2) { _Field[x, y + i].CanAdd = true; break; }
@@ -356,9 +444,24 @@ namespace battkeship
                     }
                     if (rotation == 2)
                     {
+
                         if (x - i < 0) break;
+                        if (x - type + 1 < 0) res = global::battkeship.Properties.Resources.Ship_Red;
+                        else
+                            if (_Field[x - i, y].CanAdd == false)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Red;
+                                if (_Field[x - i, y].Condition == 1)
+                                    res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+                            else if (_Field[x - i, y].Condition == 0)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+
+
                         if (_Field[x - i, y].CanAdd == false && _Field[x - i, y].IsBorder == true) break;
-                        _Field[x - i, y]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+                        _Field[x - i, y]._Cell.Image = res;
                         _Field[x - i, y]._Cell.Update();
 
                         if (_Field[x - i, y].IsBorder == true && _Field[x - i, y].Condition != 2) { _Field[x - i, y].CanAdd = true; break; }
@@ -367,8 +470,21 @@ namespace battkeship
                     if (rotation == 3)
                     {
                         if (x + i > Row - 1) break;
+                        if (x + type - 1 > Row - 1) res = global::battkeship.Properties.Resources.Ship_Red;
+                        else
+                            if (_Field[x + i, y].CanAdd == false)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Red;
+                                if (_Field[x + i, y].Condition == 1)
+                                    res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+                            else if (_Field[x + i, y].Condition == 0)
+                            {
+                                res = global::battkeship.Properties.Resources.Ship_Green;
+                            }
+
                         if (_Field[x + i, y].CanAdd == false && _Field[x + i, y].IsBorder == true) break;
-                        _Field[x + i, y]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+                        _Field[x + i, y]._Cell.Image = res;
                         _Field[x + i, y]._Cell.Update();
 
                         if (_Field[x + i, y].IsBorder == true && _Field[x + i, y].Condition != 2) { _Field[x + i, y].CanAdd = true; break; }
@@ -381,14 +497,20 @@ namespace battkeship
             else
             {
                 UnBorder(_Field);
+                if (_Field[x, y].CanAdd == false)
+                {
+                    res = global::battkeship.Properties.Resources.Ship_Red;
+                    if (_Field[x, y].Condition == 1)
+                        res = global::battkeship.Properties.Resources.Ship_Green;
+                }
                 if (_Field[x, y].CanAdd == false && _Field[x, y].IsBorder == true) return;
-                _Field[x, y]._Cell.Image = global::battkeship.Properties.Resources.Ship_Green;
+                _Field[x, y]._Cell.Image = res;
                 _Field[x, y]._Cell.Update();
             }
         }
         void _Leave(int x, int y, int type, int rotation, Cell[,] _Field)
         {
-
+            Image res = global::battkeship.Properties.Resources.Water;
             if (type != 1)
             {
                 for (int i = 0; i < type; i++)
@@ -397,8 +519,12 @@ namespace battkeship
                     if (rotation == 0)
                     {
                         if (y - i < 0) break;
+                        if (_Field[x, y - i].CanAdd == false && _Field[x, y - i].Condition == 1)
+                            res = global::battkeship.Properties.Resources.Ship_Green;
+                        else
+                            res = global::battkeship.Properties.Resources.Water;
                         if (_Field[x, y - i].CanAdd == false && _Field[x, y - i].Condition != 2) continue;
-                        _Field[x, y - i]._Cell.Image = global::battkeship.Properties.Resources.Water;
+                        _Field[x, y - i]._Cell.Image = res;
                         _Field[x, y - i]._Cell.Update();
                         if (_Field[x, y - i].IsBorder == true) { _Field[x, y - i].CanAdd = true; break; }
                         continue;
@@ -406,8 +532,12 @@ namespace battkeship
                     if (rotation == 1)
                     {
                         if (y + i > Row - 1) break;
+                        if (_Field[x, y + i].CanAdd == false && _Field[x, y + i].Condition == 1)
+                            res = global::battkeship.Properties.Resources.Ship_Green;
+                        else
+                            res = global::battkeship.Properties.Resources.Water;
                         if (_Field[x, y + i].CanAdd == false && _Field[x, y + i].Condition != 2) continue;
-                        _Field[x, y + i]._Cell.Image = global::battkeship.Properties.Resources.Water;
+                        _Field[x, y + i]._Cell.Image = res;
                         _Field[x, y + i]._Cell.Update();
                         if (_Field[x, y + i].IsBorder == true) { _Field[x, y + i].CanAdd = true; break; }
                         continue;
@@ -415,8 +545,12 @@ namespace battkeship
                     if (rotation == 2)
                     {
                         if (x - i < 0) break;
+                        if (_Field[x - i, y].CanAdd == false && _Field[x - i, y].Condition == 1)
+                            res = global::battkeship.Properties.Resources.Ship_Green;
+                        else
+                            res = global::battkeship.Properties.Resources.Water;
                         if (_Field[x - i, y].CanAdd == false && _Field[x - i, y].Condition != 2) continue;
-                        _Field[x - i, y]._Cell.Image = global::battkeship.Properties.Resources.Water;
+                        _Field[x - i, y]._Cell.Image = res;
                         _Field[x - i, y]._Cell.Update();
                         if (_Field[x - i, y].IsBorder == true) { _Field[x - i, y].CanAdd = true; break; }
                         continue;
@@ -424,8 +558,12 @@ namespace battkeship
                     if (rotation == 3)
                     {
                         if (x + i > Row - 1) break;
+                        if (_Field[x + i, y].CanAdd == false && _Field[x + i, y].Condition == 1)
+                            res = global::battkeship.Properties.Resources.Ship_Green;
+                        else
+                            res = global::battkeship.Properties.Resources.Water;
                         if (_Field[x + i, y].CanAdd == false && _Field[x + i, y].Condition != 2) continue;
-                        _Field[x + i, y]._Cell.Image = global::battkeship.Properties.Resources.Water;
+                        _Field[x + i, y]._Cell.Image = res;
                         _Field[x + i, y]._Cell.Update();
                         if (_Field[x + i, y].IsBorder == true) { _Field[x + i, y].CanAdd = true; break; }
                         continue;
@@ -501,22 +639,22 @@ namespace battkeship
             else
                 //down
                 if (rotation == 1)
-            {
-                for (int i = 0; i < Row; i++)
-                    M[i, Row - 1].IsBorder = true;
-            }
-            else
+                {
+                    for (int i = 0; i < Row; i++)
+                        M[i, Row - 1].IsBorder = true;
+                }
+                else
                     //left
                     if (rotation == 3)
-            {
-                for (int i = 0; i < Row; i++)
-                    M[Row - 1, i].IsBorder = true;
-            }
-            else
-            {
-                for (int i = 0; i < Row; i++)
-                    M[0, i].IsBorder = true;
-            }
+                    {
+                        for (int i = 0; i < Row; i++)
+                            M[Row - 1, i].IsBorder = true;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < Row; i++)
+                            M[0, i].IsBorder = true;
+                    }
         }
         void UnBorder(Cell[,] M)
         {
@@ -578,7 +716,7 @@ namespace battkeship
                                 }
                             }
                         }
-                        player.MyShips[i].delete(_Field);
+                        player.MyShips[i].delete(_field);
                         player.MyShips[i] = null;
 
                         for (k = i; k < numOfShips - 1; k++)
@@ -588,7 +726,6 @@ namespace battkeship
                         }
                         player.MyShips[k] = null;
                         numOfShips -= 1;
-
                         return;
                     }
 
@@ -606,13 +743,13 @@ namespace battkeship
                 {
                     PictureBox cell = new PictureBox()
                     {
-                        Image = _Field[x, y]._Cell.Image,
+                        Image = _field[x, y]._Cell.Image,
                         Location = new System.Drawing.Point(x * size, y * size),
                         Name = x.ToString() + " " + y.ToString(),
                         Size = new System.Drawing.Size(size, size),
                         SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
                     };
-                    _Field[x, y]._Cell = cell;
+                    _field[x, y]._Cell = cell;
                     cell.MouseDown += Click;
                     cell.MouseEnter += Enter;
                     cell.MouseLeave += Leave;
@@ -623,6 +760,37 @@ namespace battkeship
 
         }
 
+
+        //Присваивание игрока
+        public void setPlayer(Field _field)
+        {
+            this._Player = _field._Player;
+            
+        }
+        //Присваивание матрицы  состояний
+        public int[,] setMatrOfCondition()
+        {
+            int [,] matrOfCondition = new int[Row,Row];
+            for(int i=0;i<Row;i++)
+            {
+                for(int j=0;j<Row;j++)
+                {
+                    matrOfCondition[i, j] = this._field[i, j].Condition;
+                }
+            }
+            return matrOfCondition;
+        }
+        //Получения матрицы состояний
+        public void getMatrOfCondition( int[,] tmp)
+        {
+            for (int i = 0; i < Row; i++)
+            {
+                for (int j = 0; j < Row; j++)
+                {
+                  this._field[i, j].Condition=tmp[i,j];
+                }
+            }
+        }
         void updateLabeles(Label _one, Label _two, Label _three, Label _four)
         {
             _one.Text = player.NumOfShipOne.ToString();
@@ -687,6 +855,7 @@ namespace battkeship
 
 
         }
+
         // Случайная расстановка
         public void RandomGenerator()
         {
@@ -968,6 +1137,7 @@ namespace battkeship
             }
 
         }
+
 
     }
 }

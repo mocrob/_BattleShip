@@ -5,7 +5,7 @@ using System.Text;
 
 namespace battkeship
 {
-    class Player
+    class Player:Cell
     {
         Ship[] myShips = new Ship[10];
 
@@ -21,6 +21,12 @@ namespace battkeship
         {
             get { return name; }
             set { name = value; }
+        }
+        int hits;
+        public int Hits
+        {
+            get { return hits; }
+            set { hits = value; }
         }
         int numOfShipFour, numOfShipThree, numOfShipTwo, numOfShipOne;
         public int NumOfShipFour
@@ -47,6 +53,7 @@ namespace battkeship
         public Player()
         {
             name = "Player1";
+            hits = 0;
             numOfShipFour = 1;
             numOfShipThree = 2;
             numOfShipTwo = 3;
@@ -55,16 +62,40 @@ namespace battkeship
         public Player(string _name)
         {
             name = _name;
+            hits = 0;
             numOfShipFour = 1;
             numOfShipThree = 2;
             numOfShipTwo = 3;
             numOfShipOne = 4;
         }
 
-        void hit(int _x, int _y)
+        public void hit(Field _Field, int _x, int _y)
         {
 
+            if (_Field._Field[_x, _y].Condition == 1 || _Field._Field[_x, _y].Condition == 5 || _Field._Field[_x, _y].Condition == 6 || _Field._Field[_x, _y].Condition == 7)
+                {
+                    for(int i=0;i<myShips.Length;i++)
+                    {
+                        for(int j=0;j<myShips[i].Type;j++)
+                        {
+                            if(myShips[i].X[j]==_x && myShips[i].Y[j]==_y)
+                            {
+                                myShips[i].hit(_Field,_x,_y);
+                                return;
+                            }
+                        }
+                    }
+                }else
+                if (_Field._Field[_x, _y].Condition == 2 || _Field._Field[_x, _y].Condition == 0)
+                {
+                    _Field._Field[_x, _y].Condition = 4;
+                    _Field._Field[_x, _y].onPaint();
+                }
+            
+                hits++;
         }
+
+        
         
     }
 }

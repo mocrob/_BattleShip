@@ -89,6 +89,16 @@ namespace battkeship
                 cell.Image = global::battkeship.Properties.Resources.Ship_Green;
                 return;
             }
+            if (this.condition == 3)
+            {
+                cell.Image = global::battkeship.Properties.Resources.HitWater;
+                return;
+            }
+            if (this.condition == 4)
+            {
+                cell.Image = global::battkeship.Properties.Resources.MissWater;
+                return;
+            }
             if (this.condition == 5)
             {
                 cell.Image = global::battkeship.Properties.Resources.Ship_Ligth_Yellow;

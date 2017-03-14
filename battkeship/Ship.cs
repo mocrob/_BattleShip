@@ -16,7 +16,7 @@ namespace battkeship
          * 4-четырехпалубный
          */
 
-        
+
         //Очки здоровья корабля
         int hp;
         //Жив или мертв
@@ -50,7 +50,7 @@ namespace battkeship
             set { type = value; }
         }
 
-       
+
 
         public Ship()
         {
@@ -58,7 +58,7 @@ namespace battkeship
         }
         public Ship(int _type, int _x, int _y, int _rotation, Field curField)
         {
-            
+
             rotation = _rotation;
             type = _type;
             x = new int[_type]; y = new int[_type];
@@ -144,7 +144,7 @@ namespace battkeship
             return;
         }
         //Попадание
-        void hit(Field curField, int _x, int _y)
+        public void hit(Field curField, int _x, int _y)
         {
             this.hp -= 1;
             //четыре попадания по 4-х палубному/три попадания по 3-х палубному/два попадания по 2-х палубному/одно попадание по 1-палубному
@@ -154,6 +154,7 @@ namespace battkeship
                 for (int i = 0; i < this.type; i++)
                 {
                     curField._Field[x[i], y[i]].Condition = 8;
+                    curField._Field[x[i], y[i]].onPaint();
                 }
                 return;
             }
@@ -163,6 +164,7 @@ namespace battkeship
                 for (int i = 0; i < this.type; i++)
                 {
                     curField._Field[x[i], y[i]].Condition = 5;
+                    curField._Field[x[i], y[i]].onPaint();
                 }
             }
             else
@@ -173,6 +175,7 @@ namespace battkeship
                     for (int i = 0; i < this.type; i++)
                     {
                         curField._Field[x[i], y[i]].Condition = 6;
+                        curField._Field[x[i], y[i]].onPaint();
                     }
                 }
                 else
@@ -183,16 +186,18 @@ namespace battkeship
                         for (int i = 0; i < this.type; i++)
                         {
                             curField._Field[x[i], y[i]].Condition = 7;
+                            curField._Field[x[i], y[i]].onPaint();
                         }
                     }
                 }
             }
-            curField._Field[_x, _y].Condition = 3;
+           /* curField._Field[_x, _y].Condition = 3;
+            curField._Field[x[_x], y[_y]].onPaint();*/
 
         }
 
 
-        public Ship delete( Cell[,] _Field)
+        public Ship delete(Cell[,] _Field)
         {
             for (int i = 0; i < this.type; i++)
             {
@@ -200,7 +205,6 @@ namespace battkeship
                 _Field[this.X[i], this.y[i]].onPaint();
                 _Field[this.X[i], this.y[i]].CanAdd = true;
                 GC.Collect();
-                
             }
             return null;
         }

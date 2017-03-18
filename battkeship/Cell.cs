@@ -46,7 +46,7 @@ namespace battkeship
                        * 5-одно попадание по 4-х палубному,
                        * 6-два попадание по 4-х палубному/одно попадание по 3-х палубному,
                        * 7-три попадания по 4-х палубному/два попадания по 3-х палубному/одно попадание по 2-х палубному,
-                       * 8-четыре попадания по 4-х палубному/три попадания по 3-х палубному/два попадания по 2-х палубному/одно попадание по 1-палубному
+                       * 8-(корабль убит)четыре попадания по 4-х палубному/три попадания по 3-х палубному/два попадания по 2-х палубному/одно попадание по 1-палубному,
                        */
 
         //изображение клетки поля
@@ -89,6 +89,16 @@ namespace battkeship
                 cell.Image = global::battkeship.Properties.Resources.Ship_Green;
                 return;
             }
+            if (this.condition == 3)
+            {
+                cell.Image = global::battkeship.Properties.Resources.HitWater;
+                return;
+            }
+            if (this.condition == 4)
+            {
+                cell.Image = global::battkeship.Properties.Resources.MissWater;
+                return;
+            }
             if (this.condition == 5)
             {
                 cell.Image = global::battkeship.Properties.Resources.Ship_Ligth_Yellow;
@@ -106,9 +116,10 @@ namespace battkeship
             }
             if (this.condition == 8)
             {
-                cell.Image = global::battkeship.Properties.Resources.Ship_Red;
+                cell.Image = global::battkeship.Properties.Resources.HitShip_Red;
                 return;
             }
+            
         }
         
 

@@ -268,6 +268,7 @@ namespace battkeship
                             Program.menu.botHit();
                         }
                     }
+                    Program.menu.SenderForField(ConditionToString(false));
                 }
             }
             if (e.Button == MouseButtons.Right)
@@ -1254,5 +1255,44 @@ namespace battkeship
             return;
 
         }
+
+        public String ConditionToString(bool flags)
+        {
+            if (flags)
+            {
+                String Transmite = "T";
+                for (int i = 0; i < Row; i++)
+                    for (int j = 0; j < Row; j++)
+                        Transmite += Convert.ToString(_Field[i, j].Condition);
+                return Transmite;
+            }
+            else
+            {
+                return _Field[x, y]._Cell.Name;
+
+            }
+        }
+
+        public void StringToCondition(String Receive)
+        {
+            int k = 1;
+            for (int i = 0; i < Row; i++)
+                for (int j = 0; j < Row; j++)
+                {
+                    _Field[i, j].Condition = (int)Char.GetNumericValue(Receive[k]);
+                    k++;
+                }
+        }
+
+        public void ReciveMsg(String Msg)
+        {
+            x = (int)Char.GetNumericValue(Msg[0]);
+            y = (int)Char.GetNumericValue(Msg[2]);
+            hit(this, x, y);
+            ////дальше строки только для проверки, изменить после приема сообщения
+            //_Field[x, y].Condition = 3;
+            //_Field[x, y]._Cell.Image = global::battkeship.Properties.Resources.Ship_Red;
+        }
+
     }
 }

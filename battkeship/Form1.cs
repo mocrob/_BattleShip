@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
+
 
 namespace battkeship
 {
@@ -20,6 +24,9 @@ namespace battkeship
             this.button1.Text = "Test";
             this.button2.Text = "Start game";
             this.button3.Text = "Generate";
+            this.button4.Text = "Connect";
+            this.button5.Text = "Close connect";
+            this.IP.Text = "127.0.0.1";
             this.stroke.Text = "";
             this.numOfFour.Text = ""; this.numOfThree.Text = ""; this.numOfTwo.Text = ""; this.numOfOne.Text = "";
 
@@ -32,6 +39,8 @@ namespace battkeship
             EnemyField._Player = enemy;
             player.IsEnemy = false;
             enemy.IsEnemy = true;
+            //запускаем поток прослушки
+            new Thread(new ThreadStart(Receiver)).Start();
 
         }
      
@@ -39,14 +48,96 @@ namespace battkeship
         Player enemy = new Player("Игрок2");
         /*Field MyField = new Field(false);
         Field EnemyField = new Field(true);*/
-       
-       Field  MyField = new Field(false);
-       Field EnemyField = new Field(true);
+        String RecMsg = "";//принятое сообщение
+        Field  MyField = new Field(false);
+        Field EnemyField = new Field(true);
+
+
+        public void SenderForField(object Message)
+        {
+            Sender(Message);
+        }
+        delegate void SendMsg(String Text);
+
+        protected void Receiver()
+        {
+
+            //Создаем Listener на порт "по умолчанию"
+            TcpListener Listen = new TcpListener(7000);
+            //Начинаем прослушку
+            Listen.Start();
+            //и заведем заранее сокет
+            Socket ReceiveSocket;
+            while (true)
+            {
+                try
+                {
+                    //Пришло сообщение
+                    ReceiveSocket = Listen.AcceptSocket();
+                    Byte[] Receive = new Byte[256];
+                    //Читать сообщение будем в поток
+                    using (MemoryStream MessageR = new MemoryStream())
+                    {
+                        //Количество считанных байт
+                        Int32 ReceivedBytes;
+                        do
+                        {//Собственно читаем
+                            ReceivedBytes = ReceiveSocket.Receive(Receive, Receive.Length, 0);
+                            //и записываем в поток
+                            MessageR.Write(Receive, 0, ReceivedBytes);
+                            //Читаем до тех пор, пока в очереди не останется данных
+                        } while (ReceiveSocket.Available > 0);
+                        //Добавляем изменения в ChatBox
+                        //ChatBox.BeginInvoke(AcceptDelegate, new object[] { "Received " + Encoding.Default.GetString(MessageR.ToArray()), ChatBox });
+                        RecMsg = Encoding.Default.GetString(MessageR.ToArray());
+                        if (RecMsg[0] == 84)
+                        {
+                            EnemyField.StringToCondition(RecMsg);
+                        }
+                        else
+                        {
+                            MyField.ReciveMsg(RecMsg);
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        protected void Sender(object Message)
+        {
+            try
+            {
+                //Проверяем входной объект на соответствие строке
+                String MessageText = "";
+                if (Message is String)
+                    MessageText = Message as String;
+                else
+                    throw new Exception("На вход необходимо подавать строку");
+                //Создаем сокет, коннектимся
+                IPEndPoint EndPoint = new IPEndPoint(IPAddress.Parse(IP.Text), 7000);
+                Socket Connector = new Socket(EndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Connector.Connect(EndPoint);
+                //Отправляем сообщение
+                Byte[] SendBytes = Encoding.Default.GetBytes(MessageText);
+                Connector.Send(SendBytes);
+                Connector.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
         //Выстрел бота
-       public void botHit()
+        public void botHit()
        {
-           while (true)
+           while (false)//true
            {
                Random random = new Random();
                //Бесконечный цикл
@@ -126,6 +217,17 @@ namespace battkeship
                 enemy.Stroke = true;
                 stroke.Text = "Ходит " + enemy.Name;
             }*/
+            Sender(MyField.ConditionToString(true));
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            IP.Enabled = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            IP.Enabled = true;
         }
 
 

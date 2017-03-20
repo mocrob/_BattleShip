@@ -50,6 +50,9 @@
             this.numOfThree = new System.Windows.Forms.Label();
             this.numOfFour = new System.Windows.Forms.Label();
             this.stroke = new System.Windows.Forms.Label();
+            this.IP = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.oneDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.twoDeck)).BeginInit();
@@ -92,7 +95,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(13, 320);
+            this.button1.Location = new System.Drawing.Point(12, 320);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -283,10 +286,40 @@
             this.stroke.TabIndex = 11;
             this.stroke.Text = "label1";
             // 
+            // IP
+            // 
+            this.IP.Location = new System.Drawing.Point(12, 226);
+            this.IP.Name = "IP";
+            this.IP.Size = new System.Drawing.Size(212, 20);
+            this.IP.TabIndex = 12;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(12, 253);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(105, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(123, 253);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(101, 23);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(954, 401);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.IP);
             this.Controls.Add(this.stroke);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button3);
@@ -340,7 +373,9 @@
         public System.Windows.Forms.Label numOfThree;
         public System.Windows.Forms.Label numOfFour;
         private System.Windows.Forms.Label stroke;
-
+        private System.Windows.Forms.TextBox IP;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 

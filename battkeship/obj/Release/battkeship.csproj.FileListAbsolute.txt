@@ -13,3 +13,11 @@ D:\Desktop\Учеба\4 семестр\Техн. прог\_BattleShip-now-Field-
 D:\Desktop\Учеба\4 семестр\Техн. прог\_BattleShip-now-Field-is-child-of-Player-\battkeship\obj\Release\battkeship.csproj.GenerateResource.Cache
 D:\Desktop\Учеба\4 семестр\Техн. прог\_BattleShip-now-Field-is-child-of-Player-\battkeship\bin\Release\battkeship.exe
 D:\Desktop\Учеба\4 семестр\Техн. прог\_BattleShip-now-Field-is-child-of-Player-\battkeship\bin\Release\battkeship.pdb
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.exe
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.pdb
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\bin\Release\battkeship.exe
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\bin\Release\battkeship.pdb
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.csprojResolveAssemblyReference.cache
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.Form1.resources
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.Properties.Resources.resources
+C:\Users\Михаил\Downloads\_BattleShip-add-primitive-bot\_BattleShip-add-primitive-bot\battkeship\obj\Release\battkeship.csproj.GenerateResource.Cache

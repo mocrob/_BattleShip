@@ -151,14 +151,14 @@ namespace battkeship
 
             if (e.Button == MouseButtons.Left)
             {
+                PictureBox picClick = sender as PictureBox;
 
+                x = (int)Char.GetNumericValue(picClick.Name[0]);
+                y = (int)Char.GetNumericValue(picClick.Name[2]);
                 if (isEnemyField == false && isCreateMode == true && isSelected == true)
                 {
 
-                    PictureBox picClick = sender as PictureBox;
-
-                    x = (int)Char.GetNumericValue(picClick.Name[0]);
-                    y = (int)Char.GetNumericValue(picClick.Name[2]);
+                    
                     if (Check(x, y, type, rotation, _Field) == true)
                     {
                         AddShip(type, x, y, rotation);
@@ -202,6 +202,10 @@ namespace battkeship
                         updatePBoxes(Program.menu.oneDeck, Program.menu.twoDeck, Program.menu.threeDeck, Program.menu.fourDeck);
                         ChangeZoneNearShip(_Field, true/*при создании*/);
                     }
+                }
+                else if (isEnemyField == true)
+                {
+                    Program.menu.SenderForField(ConditionToString(false));
                 }
             }
             if (e.Button == MouseButtons.Right)
@@ -326,6 +330,13 @@ namespace battkeship
                 ChangeZoneNearShip(_Field, true);
             }
         }
+
+        //func for mouse up
+        void Up(object sender, MouseEventArgs e)
+        {
+           // Program.menu.SenderForField(this.ConditionToString(false));
+        }
+
         void _Enter(int x, int y, int type, int rotation, Cell[,] _Field)
         {
 
@@ -617,6 +628,7 @@ namespace battkeship
                     cell.MouseEnter += Enter;
                     cell.MouseLeave += Leave;
                     cell.MouseDoubleClick += DoubleClick;
+                    cell.MouseUp += Up;
                     panel.Controls.Add(cell);
                 }
             }
@@ -770,7 +782,7 @@ namespace battkeship
                 return;
             }
 
-            int k = random.Next(1);
+            int k = random.Next(2);
             if (k == 0)
             {
                 for (int i = 0; i < 4; i++)
@@ -837,7 +849,7 @@ namespace battkeship
                         return;
                     }
                 }
-                int k = random.Next(1);
+                int k = random.Next(2);
                 if (k == 0 && y <= 7 && _Field[x, y + 1].Condition == 0 && _Field[x, y + 2].Condition == 0 && _Field[x, y].Condition == 0)
                 {
                     for (int i = 0; i < 3; i++)
@@ -904,7 +916,7 @@ namespace battkeship
                     return;
                 }
             }
-            int k = random.Next(1);
+            int k = random.Next(2);
             if (k == 0)
             {
 
@@ -968,6 +980,44 @@ namespace battkeship
             }
 
         }
+
+        public String ConditionToString(bool flags)
+        {
+            if (flags)
+            {
+                String Transmite = "T";
+                for (int i = 0; i < Row; i++)
+                    for (int j = 0; j < Row; j++)
+                        Transmite += Convert.ToString(_Field[i, j].Condition);
+                return Transmite;
+            }
+            else
+            {
+               return _Field[x,y]._Cell.Name;
+              
+            }
+        }
+
+        public void StringToCondition(String Receive)
+        {
+            int k = 1;
+            for (int i = 0; i < Row; i++)
+                for (int j = 0; j < Row; j++)
+                {
+                    _Field[i, j].Condition = (int)Char.GetNumericValue(Receive[k]);
+                    k++;
+                }
+        }
+
+        public void ReciveMsg(String Msg)
+        {
+            x = (int)Char.GetNumericValue(Msg[0]);
+            y = (int)Char.GetNumericValue(Msg[2]);
+            //дальше строки только для проверки, изменить после приема сообщения
+            _Field[x, y].Condition = 3;
+            _Field[x, y]._Cell.Image = global::battkeship.Properties.Resources.Ship_Red;
+        }
+       
 
     }
 }

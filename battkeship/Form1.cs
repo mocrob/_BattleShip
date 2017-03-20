@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
 
 namespace battkeship
 {
@@ -21,13 +24,97 @@ namespace battkeship
             EnemyField.CreateField(FieldTwo);
             player = MyField._Player;
             shipDesk(oneDeck, twoDeck, threeDeck, fourDeck, numOfOne, numOfTwo, numOfThree, numOfFour);
+            new Thread(new ThreadStart(Receiver)).Start();
         }
         Player player = new Player();
         Field MyField = new Field(false);
         Field EnemyField = new Field(true);
-        
-       
-        
+        String RecMsg = "";
+
+        public void SenderForField(object Message)
+        {
+            Sender(Message);
+        }
+        delegate void SendMsg(String Text, RichTextBox Rtb);
+
+        SendMsg AcceptDelegate = (String Text, RichTextBox Rtb) =>
+        {
+            Rtb.Text += Text + "\n";
+        };
+
+        protected void Receiver()
+        {
+            
+            //Создаем Listener на порт "по умолчанию"
+            TcpListener Listen = new TcpListener(7000);
+            //Начинаем прослушку
+            Listen.Start();
+            //и заведем заранее сокет
+            Socket ReceiveSocket;
+            while (true)
+            {
+                try
+                {
+                    //Пришло сообщение
+                    ReceiveSocket = Listen.AcceptSocket();
+                    Byte[] Receive = new Byte[256];
+                    //Читать сообщение будем в поток
+                    using (MemoryStream MessageR = new MemoryStream())
+                    {
+                        //Количество считанных байт
+                        Int32 ReceivedBytes;
+                        do
+                        {//Собственно читаем
+                            ReceivedBytes = ReceiveSocket.Receive(Receive, Receive.Length, 0);
+                            //и записываем в поток
+                            MessageR.Write(Receive, 0, ReceivedBytes);
+                            //Читаем до тех пор, пока в очереди не останется данных
+                        } while (ReceiveSocket.Available > 0);
+                        //Добавляем изменения в ChatBox
+                        //ChatBox.BeginInvoke(AcceptDelegate, new object[] { "Received " + Encoding.Default.GetString(MessageR.ToArray()), ChatBox });
+                        RecMsg = Encoding.Default.GetString(MessageR.ToArray());
+                        if(RecMsg[0]==84)
+                        {
+                            EnemyField.StringToCondition(RecMsg);
+                        }
+                       else
+                        {
+                            MyField.ReciveMsg(RecMsg);
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        protected void Sender(object Message)
+        {
+            try
+            {
+                //Проверяем входной объект на соответствие строке
+                String MessageText = "";
+                if (Message is String)
+                    MessageText = Message as String;
+                else
+                    throw new Exception("На вход необходимо подавать строку");
+                //Создаем сокет, коннектимся
+                IPEndPoint EndPoint = new IPEndPoint(IPAddress.Parse(IP.Text), 7000);
+                Socket Connector = new Socket(EndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Connector.Connect(EndPoint);
+                //Отправляем сообщение
+                Byte[] SendBytes = Encoding.Default.GetBytes(MessageText);
+                Connector.Send(SendBytes);
+                Connector.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         int type;
         
         private void button1_Click(object sender, EventArgs e)
@@ -63,6 +150,8 @@ namespace battkeship
         private void button2_Click(object sender, EventArgs e)
         {
             MyField.IsCreateMode = false;
+            Sender(MyField.ConditionToString(true));
+
         }
 
 
@@ -231,6 +320,16 @@ namespace battkeship
         {
             MyField.RandomGenerator();
             MyField.DrawRand();
+        }
+
+        private void conn_Click(object sender, EventArgs e)
+        {
+            IP.Enabled = false;
+        }
+
+        private void close_con_Click(object sender, EventArgs e)
+        {
+            IP.Enabled = true;
         }
     }
 }

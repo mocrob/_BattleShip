@@ -10,7 +10,7 @@ C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.e
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.pdb
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\bin\Debug\battkeship.exe
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\bin\Debug\battkeship.pdb
-C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.csprojResolveAssemblyReference.cache
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.Form1.resources
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.Properties.Resources.resources
 C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.csproj.GenerateResource.Cache
+C:\Users\Михаил\Source\Repos\_BattleShip\battkeship\obj\Debug\battkeship.csprojResolveAssemblyReference.cache

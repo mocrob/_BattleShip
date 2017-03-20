@@ -40,6 +40,9 @@
             this.numOfOne = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.IP = new System.Windows.Forms.TextBox();
+            this.conn = new System.Windows.Forms.Button();
+            this.close_con = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fourDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.threeDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.twoDeck)).BeginInit();
@@ -160,11 +163,42 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // IP
+            // 
+            this.IP.Location = new System.Drawing.Point(12, 240);
+            this.IP.Name = "IP";
+            this.IP.Size = new System.Drawing.Size(173, 20);
+            this.IP.TabIndex = 8;
+            this.IP.Text = "127.0.0.1";
+            // 
+            // conn
+            // 
+            this.conn.Location = new System.Drawing.Point(12, 266);
+            this.conn.Name = "conn";
+            this.conn.Size = new System.Drawing.Size(173, 23);
+            this.conn.TabIndex = 9;
+            this.conn.Text = "Connect";
+            this.conn.UseVisualStyleBackColor = true;
+            this.conn.Click += new System.EventHandler(this.conn_Click);
+            // 
+            // close_con
+            // 
+            this.close_con.Location = new System.Drawing.Point(13, 296);
+            this.close_con.Name = "close_con";
+            this.close_con.Size = new System.Drawing.Size(172, 23);
+            this.close_con.TabIndex = 10;
+            this.close_con.Text = "close connection";
+            this.close_con.UseVisualStyleBackColor = true;
+            this.close_con.Click += new System.EventHandler(this.close_con_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 399);
+            this.Controls.Add(this.close_con);
+            this.Controls.Add(this.conn);
+            this.Controls.Add(this.IP);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.oneDeck);
@@ -202,6 +236,9 @@
         public System.Windows.Forms.Label numOfOne;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox IP;
+        private System.Windows.Forms.Button conn;
+        private System.Windows.Forms.Button close_con;
     }
 }
 

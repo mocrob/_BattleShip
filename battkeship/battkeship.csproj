@@ -118,6 +118,30 @@
   <ItemGroup>
     <None Include="Resources\Ship_Grey.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectedWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MissWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\w512h5121380376547MetroUIConfigure.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

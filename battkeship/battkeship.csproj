@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
+    <Compile Include="ChangeSettings.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -56,6 +62,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="WinApiHelper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -117,6 +124,207 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ship_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectedWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MissWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HitShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0FourShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\FourShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\FourShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\HitShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\HitShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\HitShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\HitShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\HitWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\MissWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\SelectedWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Ship_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\ThreeShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\ThreeShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\TwoShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\TwoShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Standard\Water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0FourShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0HitShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0HitShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0HitShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0HitShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0HitWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0MissWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0SelectedWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Ship_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0ThreeShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0ThreeShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0TwoShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0TwoShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\0Water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pFourShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pFourShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pHitShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pHitShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pHitShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pHitShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pHitWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pMissWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pSelectedWater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Ligth_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pShip_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pThreeShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pThreeShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pTwoShip_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pTwoShip_Grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pixel\pWater.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

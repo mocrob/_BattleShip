@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace battkeship
 {
@@ -16,11 +17,16 @@ namespace battkeship
          * 4-четырехпалубный
          */
 
-        
+
         //Очки здоровья корабля
         int hp;
         //Жив или мертв
         bool isLive;
+        public bool IsLive
+        {
+            get { return isLive; }
+            set { isLive = value; }
+        }
         //Масиивы координат корабля
         int[] x, y;
 
@@ -42,23 +48,28 @@ namespace battkeship
          * 2-left
          * 3-right
          */
-
+        public int Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
         //Нужно ли?!
         public int Type
         {
             get { return type; }
             set { type = value; }
         }
+       static string mode = "";
 
-       
 
-        public Ship()
+       public Ship(string _mode)
+           : base(_mode)
         {
-
+            mode = _mode;
         }
-        public Ship(int _type, int _x, int _y, int _rotation, Field curField)
+        public Ship(int _type, int _x, int _y, int _rotation, Field curField, string _mode):base(_mode)
         {
-            
+            mode = _mode;
             rotation = _rotation;
             type = _type;
             x = new int[_type]; y = new int[_type];
@@ -144,61 +155,183 @@ namespace battkeship
             return;
         }
         //Попадание
-        void hit(Field curField, int _x, int _y)
+        public void hit(Field curField, int _x, int _y)
         {
-            this.hp -= 1;
-            //четыре попадания по 4-х палубному/три попадания по 3-х палубному/два попадания по 2-х палубному/одно попадание по 1-палубному
-            if (this.hp == 0)
+            if (curField.IsEnemyField == false)
             {
-                isLive = false;
-                for (int i = 0; i < this.type; i++)
+                Image res = global::battkeship.Properties.Resources.Water;
+                this.hp -= 1;
+                //четыре попадания по 4-х палубному/три попадания по 3-х палубному/два попадания по 2-х палубному/одно попадание по 1-палубному
+                if (this.hp == 0)
                 {
-                    curField._Field[x[i], y[i]].Condition = 8;
+                    
+                    isLive = false;
+                    for (int i = 0; i < this.type; i++)
+                    {
+                        
+                        //res = global::battkeship.Properties.Resources.Water;
+                        curField._Field[x[i], y[i]].Condition = 8;
+                        curField._Field[x[i], y[i]].onPaint(mode);
+                        //curField._Field[_x, _y]._Cell.Image = res;
+                    }
+                    this.SpaceAroundTheShip(curField._Field);
+                    return;
                 }
-                return;
-            }
-            //одно попадание по 4-х палубному
-            if (this.hp == 3)
-            {
-                for (int i = 0; i < this.type; i++)
-                {
-                    curField._Field[x[i], y[i]].Condition = 5;
-                }
-            }
-            else
-            {
-                //два попадание по 4-х палубному/одно попадание по 3-х палубному
-                if (this.hp == 2)
+                //одно попадание по 4-х палубному
+                if (this.hp == 3)
                 {
                     for (int i = 0; i < this.type; i++)
                     {
-                        curField._Field[x[i], y[i]].Condition = 6;
+                        curField._Field[x[i], y[i]].Condition = 5;
+                        curField._Field[x[i], y[i]].onPaint(mode);
                     }
+                    curField._Field[_x, _y].Condition = -5;
+                    curField._Field[_x, _y].onPaint(mode);
                 }
                 else
                 {
-                    //три попадания по 4-х палубному/два попадания по 3-х палубному/одно попадание по 2-х палубному
-                    if (this.hp == 1)
+                    //два попадание по 4-х палубному/одно попадание по 3-х палубному
+                    if (this.hp == 2)
                     {
                         for (int i = 0; i < this.type; i++)
                         {
-                            curField._Field[x[i], y[i]].Condition = 7;
+                            if (curField._Field[x[i], y[i]].Condition == -5)
+                            {
+                                curField._Field[x[i], y[i]].Condition = -6;
+                            }
+                            else
+                            {
+                                curField._Field[x[i], y[i]].Condition = 6;
+                            }
+                            curField._Field[x[i], y[i]].onPaint(mode);
+                        }
+                        
+                        curField._Field[_x, _y].Condition = -6;
+                        curField._Field[_x, _y].onPaint(mode);
+                    }
+                    else
+                    {
+                        //три попадания по 4-х палубному/два попадания по 3-х палубному/одно попадание по 2-х палубному
+                        if (this.hp == 1)
+                        {
+                            for (int i = 0; i < this.type; i++)
+                            {
+                                if (curField._Field[x[i], y[i]].Condition == -6)
+                                {
+                                    curField._Field[x[i], y[i]].Condition = -7;
+                                }
+                                else
+                                {
+                                    curField._Field[x[i], y[i]].Condition = 7;
+                                }
+                                curField._Field[x[i], y[i]].onPaint(mode);
+                            }
+                            curField._Field[_x, _y].Condition = -7;
+                            curField._Field[_x, _y].onPaint(mode);
                         }
                     }
                 }
             }
-            curField._Field[_x, _y].Condition = 3;
+            else
+            {
+                this.hp -= 1;
+                curField._Field[_x, _y].Condition = 3;
+                if (this.hp == 0)
+                {
+                    isLive = false;
+                    for (int i = 0; i < this.type; i++)
+                    {
+                        //корабль убит
+                        curField._Field[x[i], y[i]].Condition = 8;
+                        curField._Field[x[i], y[i]].onPaint(mode);
+                        curField._Field[x[i], y[i]]._Cell.Update();
+                    }
+                    //Отрисовать точками
+                    this.SpaceAroundTheShip(curField._Field);
+                }
+                curField._Field[_x, _y].onPaint(mode);
+                curField._Field[_x, _y]._Cell.Update();
+            }
+
 
         }
 
-
-        public Ship delete( Cell[,] _Field)
+        //Пространство вокруг корабля
+        void SpaceAroundTheShip(Cell[,] _Field)
+        {
+            int Row = _Field.GetLength(1);
+            for (int i = 0; i < Row; i++)
+            {
+                for (int j = 0; j < Row; j++)
+                {
+                    if (_Field[i, j].Condition == 8)
+                    {
+                        // up left
+                        if (i > 0 && j > 0 && _Field[i - 1, j - 1].Condition == 2)
+                        {
+                            _Field[i - 1, j - 1].Condition = 4;
+                            _Field[i - 1, j - 1].onPaint(mode);
+                        }
+                        //up
+                        if (i > 0 && _Field[i - 1, j].Condition == 2)
+                        {
+                            _Field[i - 1, j].Condition = 4;
+                            _Field[i - 1, j].onPaint(mode);
+                            
+                        }
+                        //up right
+                        if (i > 0 && j < Row - 1 && _Field[i - 1, j + 1].Condition == 2)
+                        {
+                            _Field[i - 1, j + 1].Condition = 4;
+                            _Field[i - 1, j + 1].onPaint(mode);
+                           
+                        }
+                        //right
+                        if (j < Row - 1 && _Field[i, j + 1].Condition == 2)
+                        {
+                            _Field[i, j + 1].Condition = 4;
+                            _Field[i, j + 1].onPaint(mode);
+                          
+                        }
+                        //down right
+                        if (i < Row - 1 && j < Row - 1 && _Field[i + 1, j + 1].Condition == 2)
+                        {
+                            _Field[i + 1, j + 1].Condition = 4;
+                            _Field[i + 1, j + 1].onPaint(mode);
+                            
+                        }
+                        //down
+                        if (i < Row - 1 && _Field[i + 1, j].Condition == 2)
+                        {
+                            _Field[i + 1, j].Condition = 4;
+                            _Field[i + 1, j].onPaint(mode);
+                           
+                        }
+                        //down left
+                        if (i < Row - 1 && j > 0 && _Field[i + 1, j - 1].Condition == 2)
+                        {
+                            _Field[i + 1, j - 1].Condition = 4;
+                            _Field[i + 1, j - 1].onPaint(mode);
+                         
+                        }
+                        //left
+                        if (j > 0 && _Field[i, j - 1].Condition == 2)
+                        {
+                            _Field[i, j - 1].Condition = 4;
+                            _Field[i, j - 1].onPaint(mode);
+                        }
+                    }
+                }
+            }
+        }
+        public Ship delete(Cell[,] _Field)
         {
             for (int i = 0; i < this.type; i++)
             {
                 _Field[this.X[i], this.y[i]].Condition = 0;
-                _Field[this.X[i], this.y[i]].onPaint();
+                _Field[this.X[i], this.y[i]].onPaint(mode);
                 _Field[this.X[i], this.y[i]].CanAdd = true;
+                GC.Collect();
             }
             return null;
         }

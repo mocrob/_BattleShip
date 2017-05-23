@@ -5,7 +5,7 @@ using System.Text;
 
 namespace battkeship
 {
-    class Player
+    class Player : Cell
     {
         Ship[] myShips = new Ship[10];
 
@@ -15,12 +15,63 @@ namespace battkeship
             get { return myShips; }
             set { myShips = value; }
         }
-      
+
+        //Поле игрока
+        /*Field myField;
+        public Field MyField
+        {
+            get { return myField; }
+            set { myField = value; }
+        }
+        //Поле врага
+        Field enemyField;
+        public Field EnemyField
+        {
+            get { return enemyField; }
+            set { enemyField = value; }
+        }*/
         string name;
         public string Name
         {
             get { return name; }
             set { name = value; }
+        }
+
+        //Число кораблей у игрока
+        int numOfShips;
+        public int NumOfShips
+        {
+            get { return numOfShips; }
+            set { numOfShips = value; }
+        }
+
+        //Игрок или соперник(враг)
+        bool isEnemy;
+        public bool IsEnemy
+        {
+            get { return isEnemy; }
+            set { isEnemy = value; }
+        }
+
+        //Ход игрока
+        bool stroke;
+        public bool Stroke
+        {
+            get { return stroke; }
+            set { stroke = value; }
+        }
+
+        int hits;
+        public int Hits
+        {
+            get { return hits; }
+            set { hits = value; }
+        }
+        int numOfDefeatShips;
+        public int NumOfDefeatShips
+        {
+            get { return numOfDefeatShips; }
+            set { numOfDefeatShips = value; }
         }
         int numOfShipFour, numOfShipThree, numOfShipTwo, numOfShipOne;
         public int NumOfShipFour
@@ -43,28 +94,76 @@ namespace battkeship
             get { return numOfShipOne; }
             set { numOfShipOne = value; }
         }
+        string mode = "";
 
-        public Player()
+
+
+        public Player(string _mode):base(_mode)
         {
-            name = "Player1";
+            name = "Player";
+            hits = 0;
+            numOfShips = 10;
             numOfShipFour = 1;
             numOfShipThree = 2;
             numOfShipTwo = 3;
             numOfShipOne = 4;
+            numOfDefeatShips = 0;
+            mode = _mode;
         }
-        public Player(string _name)
+        public Player(string _name, string _mode)
+            : base(_mode)
         {
             name = _name;
+            hits = 0;
+            numOfShips = 10;
             numOfShipFour = 1;
             numOfShipThree = 2;
             numOfShipTwo = 3;
             numOfShipOne = 4;
+            numOfDefeatShips = 0;
+            mode = _mode;
         }
 
-        void hit(int _x, int _y)
+        /*  public void hit(Field _Field, int _x, int _y)
+          {
+
+              if (_Field._Field[_x, _y].Condition == 1 || _Field._Field[_x, _y].Condition == 5 || _Field._Field[_x, _y].Condition == 6 || _Field._Field[_x, _y].Condition == 7)
+              {
+                  for (int i = 0; i < myShips.Length; i++)
+                  {
+                      for (int j = 0; j < myShips[i].Type; j++)
+                      {
+                          if (myShips[i].X[j] == _x && myShips[i].Y[j] == _y)
+                          {
+                              myShips[i].hit(_Field, _x, _y);
+                              if (myShips[i].IsLive == false) numOfShips -= 1;
+                              hits++;
+                              stroke = true;
+                              return;
+                          }
+                      }
+                  }
+              }
+              else
+                  if (_Field._Field[_x, _y].Condition == 2 || _Field._Field[_x, _y].Condition == 0)
+                  {
+                      _Field._Field[_x, _y].Condition = 4;
+                      _Field._Field[_x, _y].onPaint();
+                  }
+              stroke = false;
+              hits++;
+              return;
+          }*/
+        public void DefeatShips()
         {
-
+            numOfDefeatShips = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (myShips[i].IsLive == false)
+                    numOfDefeatShips++;
+            }
         }
-        
+
+
     }
 }

@@ -7,16 +7,21 @@ namespace battkeship
 {
     static class Program
     {
-        public static Form1 menu;
+        public static Battleship menu;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            /*
+             * Интерфейс
+             * Tool bar
+             * Организовать выход
+             */
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(menu = new Form1());
+            Application.Run(menu = new Battleship());
         }
     }
 }
